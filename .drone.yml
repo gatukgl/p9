@@ -1,0 +1,90 @@
+---
+kind: pipeline
+type: kubernetes
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build p9
+  image: docker
+  commands:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_URL
+  - cd server
+  - docker build -t $DOCKER_URL/p9:$DRONE_BUILD_NUMBER .
+  - docker push $DOCKER_URL/p9:$DRONE_BUILD_NUMBER
+  - docker tag $DOCKER_URL/p9:$DRONE_BUILD_NUMBER $DOCKER_URL/p9:latest
+  - docker push $DOCKER_URL/p9:latest
+  environment:
+    DOCKER_PASSWORD:
+      from_secret: NEXUS3_PASSWORD
+    DOCKER_URL:
+      from_secret: NEXUS3_DOCKER_URL
+    DOCKER_USER:
+      from_secret: NEXUS3_USER
+  volumes:
+  - name: dockersock
+    path: /var/run/
+  depends_on:
+  - clone
+
+- name: deploy p9
+  image: bitnami/kubectl
+  commands:
+  - kubectl --token="$K8S_TOKEN" -n p9 set image deployments/p9 p9=$DOCKER_URL/p9:$DRONE_BUILD_NUMBER
+  - kubectl --token="$K8S_TOKEN" -n p9 rollout status -w deployments/p9
+  environment:
+    DOCKER_URL:
+      from_secret: NEXUS3_DOCKER_URL
+    K8S_TOKEN:
+      from_secret: DEPLOY_TOKEN
+  when:
+    branch:
+    - main
+  depends_on:
+  - build p9
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/
+
+---
+kind: secret
+name: NEXUS3_USER
+
+get:
+  path: pipeline-secret
+  name: NEXUS3_USER
+
+---
+kind: secret
+name: NEXUS3_PASSWORD
+
+get:
+  path: pipeline-secret
+  name: NEXUS3_PASSWORD
+
+---
+kind: secret
+name: NEXUS3_DOCKER_URL
+
+get:
+  path: pipeline-secret
+  name: NEXUS3_DOCKER_URL
+
+---
+kind: secret
+name: DEPLOY_TOKEN
+
+get:
+  path: pipeline-secret
+  name: P9_DEPLOY_TOKEN
+
+---
+kind: signature
+hmac: b16687553d70dbc813cb1da44228279d1a68ab2f15c9e76670e7a2c3d755d81d
+
+...
