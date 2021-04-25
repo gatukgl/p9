@@ -12,7 +12,6 @@ steps:
   image: docker
   commands:
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_URL
-  - cd server
   - docker build -t $DOCKER_URL/p9:$DRONE_BUILD_NUMBER .
   - docker push $DOCKER_URL/p9:$DRONE_BUILD_NUMBER
   - docker tag $DOCKER_URL/p9:$DRONE_BUILD_NUMBER $DOCKER_URL/p9:latest
@@ -85,6 +84,6 @@ get:
 
 ---
 kind: signature
-hmac: b16687553d70dbc813cb1da44228279d1a68ab2f15c9e76670e7a2c3d755d81d
+hmac: 212a9a40de118486fa3a227c67c11b4506413ed9e9fe75071708c3a958ca223c
 
 ...
