@@ -7,7 +7,7 @@ ENV MIX_ENV prod
 
 ADD mix.exs .
 ADD mix.lock .
-RUN mix deps.get
+RUN mix do deps.get, deps.compile
 
 ADD . .
 RUN mix release
