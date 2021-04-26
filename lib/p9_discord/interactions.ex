@@ -1,9 +1,9 @@
-defmodule P9.Discord.Interactions do
+defmodule P9Discord.Interactions do
   require Logger
   require Regex
 
   alias Nostrum.Api
-  alias P9.Domain.Knowledge
+  alias P9Domain.Knowledge
 
   @hello_rx ~r/(<@!?\d+>)\s*hello\s*/i
   @remember_rx ~r/(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/i

@@ -8,7 +8,7 @@ defmodule P9 do
   @impl true
   def start(_type, _args) do
     Logger.info("descending into pandemonium...")
-    P9.Supervisor.start_link(name: P9.Supervisor)
+    P9Supervisor.start_link(name: P9Supervisor)
   end
 
   @impl true

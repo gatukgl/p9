@@ -1,10 +1,10 @@
-defmodule P9.Domain.Knowledge do
+defmodule P9.Knowledge do
   require Logger
 
   use Ecto.Schema
 
   alias Ecto.Changeset
-  alias P9.Domain.Repo
+  alias P9.Repo
 
   schema "knowledge" do
     field(:key, :string)
@@ -19,12 +19,17 @@ defmodule P9.Domain.Knowledge do
   end
 
   def get(key) do
-    P9.Domain.Knowledge
+    P9.Knowledge
     |> Repo.get_by(key: key)
   end
 
+  def get_all do
+    P9.Knowledge
+    |> Repo.all()
+  end
+
   def set(key, value) do
-    %P9.Domain.Knowledge{key: key, value: value}
+    %P9.Knowledge{key: key, value: value}
     |> changeset()
     |> Repo.insert(
       on_conflict: [set: [value: value]],
@@ -33,7 +38,7 @@ defmodule P9.Domain.Knowledge do
   end
 
   def del(key) do
-    P9.Domain.Knowledge
+    P9.Knowledge
     |> Repo.get_by(key: key)
     |> case do
       nil -> {:error, :not_found}

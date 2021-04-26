@@ -1,4 +1,4 @@
-defmodule P9.Domain.Repo do
+defmodule P9.Repo do
   use Ecto.Repo,
     otp_app: :p9,
     adapter: Ecto.Adapters.Postgres

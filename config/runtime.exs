@@ -1,32 +1,24 @@
 import Config
 
-defmodule Util do
-  def read_env(name, default) do
-    case System.get_env(name) do
-      x when x == "" or x == nil -> default
-      x -> x
-    end
+defmodule Env do
+  def get(key) do
+    v = System.get_env(key)
+    if v == nil, do: "", else: String.trim(v)
+  end
+
+  def is_set?(key) do
+    get(key) != ""
   end
 end
 
-config :logger,
-  level: :debug,
-  compile_time_purge_matching: [[level_lower_than: :debug]]
-
+# required, since we're primarily a discord bot
 config :nostrum,
-  token: System.get_env("DISCORD_TOKEN"),
-  num_shards: :auto
+  token: Env.get("DISCORD_TOKEN")
 
-config :porcelain, driver: Porcelain.Driver.Basic
+if Env.is_set?("DATABASE_URL") do
+  config :p9, P9.Repo, url: Env.get("DATABASE_URL")
+end
 
-config :phoenix, json_library: Jason
-
-config :p9, ecto_repos: [P9.Domain.Repo]
-
-config :p9, P9.Domain.Repo,
-  url: Util.read_env("DATABASE_URL", "postgres://p9:prodigy9@0.0.0.0:5432/p9?sslmode=disable")
-
-config :p9, P9.Web.Endpoint,
-  url: [host: "0.0.0.0"],
-  http: [port: 4000],
-  server: true
+if Env.is_set?("PORT") do
+  config :p9, P9Web.Endpoint, http: [port: Env.get("PORT")]
+end

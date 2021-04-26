@@ -1,9 +1,9 @@
-defmodule P9.Discord.Consumer do
+defmodule P9Discord.Consumer do
   require Logger
   use Nostrum.Consumer
 
-  alias P9.Discord.Bot, as: Bot
-  alias P9.Discord.Interactions, as: Interact
+  alias P9Discord.Bot, as: Bot
+  alias P9Discord.Interactions, as: Interact
 
   def start_link do
     Consumer.start_link(__MODULE__)

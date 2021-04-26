@@ -1,4 +1,4 @@
-defmodule P9.Discord.Bot do
+defmodule P9Discord.Bot do
   defmodule State do
     defstruct username: "",
               discriminator: ""
