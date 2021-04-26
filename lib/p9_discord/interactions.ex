@@ -3,7 +3,7 @@ defmodule P9Discord.Interactions do
   require Regex
 
   alias Nostrum.Api
-  alias P9Domain.Knowledge
+  alias P9.Knowledge
 
   @hello_rx ~r/(<@!?\d+>)\s*hello\s*/i
   @remember_rx ~r/(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/i
