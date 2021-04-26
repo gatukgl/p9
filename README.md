@@ -1,21 +1,18 @@
 # P9
 
-**TODO: Add description**
+### Development
 
-## Installation
+First, you need a discord server token.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `p9` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:p9, "~> 0.1.0"}
-  ]
-end
+```sh
+$ export DISCORD_TOKEN=123456
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/p9](https://hexdocs.pm/p9).
+Then, run with `mix run`
 
+```sh
+$ mix run --no-halt
+```
+
+The `--no-halt` part is required to keep all supervisors running even when the app has
+finished initializing.
