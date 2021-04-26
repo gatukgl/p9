@@ -1,4 +1,5 @@
 defmodule P9.Knowledge do
+  require Protocol
   require Logger
 
   use Ecto.Schema
@@ -6,6 +7,7 @@ defmodule P9.Knowledge do
   alias Ecto.Changeset
   alias P9.Repo
 
+  @derive {Jason.Encoder, only: ~w(key value inserted_at updated_at)a}
   schema "knowledge" do
     field(:key, :string)
     field(:value, :string)
