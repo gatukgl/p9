@@ -17,5 +17,6 @@ WORKDIR /app
 RUN apk add --no-cache ca-certificates tzdata elixir
 
 COPY --from=builder /app/_build/prod/rel/p9/ /app/
+EXPOSE 4000
 CMD ["./bin/p9", "start"]
 
