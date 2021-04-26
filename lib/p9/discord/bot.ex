@@ -1,7 +1,7 @@
 defmodule P9.Discord.Bot do
   defmodule State do
     defstruct username: "",
-      discriminator: ""
+              discriminator: ""
   end
 
   require Logger
@@ -20,9 +20,10 @@ defmodule P9.Discord.Bot do
 
   def ensure_self_aware do
     if !is_self_aware?() do
-      {:ok, me} = Api.get_current_user
+      {:ok, me} = Api.get_current_user()
       {:ok, _} = impersonate(me)
     end
+
     :ok
   end
 
@@ -39,27 +40,28 @@ defmodule P9.Discord.Bot do
   end
 
   def handle_call({:is_self_aware?, _}, _, state) do
-    aware = String.trim(state.username) != "" &&
-      String.trim(state.discriminator) != ""
+    aware =
+      String.trim(state.username) != "" &&
+        String.trim(state.discriminator) != ""
+
     {:reply, aware, state}
   end
 
   def handle_call({:impersonate, user}, _, state) do
     Logger.info("interacting as user #{user.username}##{user.discriminator}")
 
-    new_state = %{ state |
-      username: user.username,
-      discriminator: user.discriminator
-    }
+    new_state = %{state | username: user.username, discriminator: user.discriminator}
     {:reply, {:ok, new_state}, new_state}
   end
 
   def handle_call({:is_bot_mention?, msg}, _, state) do
-    match = msg.mentions
-            |> Enum.any?(fn m ->
-              state.username == m.username &&
-                state.discriminator == m.discriminator
-            end)
+    match =
+      msg.mentions
+      |> Enum.any?(fn m ->
+        state.username == m.username &&
+          state.discriminator == m.discriminator
+      end)
+
     {:reply, match, state}
   end
 end

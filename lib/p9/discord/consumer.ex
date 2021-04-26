@@ -10,7 +10,7 @@ defmodule P9.Discord.Consumer do
   end
 
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
-    Bot.ensure_self_aware
+    Bot.ensure_self_aware()
 
     if Bot.is_bot_mention?(msg) do
       Interact.with(msg)

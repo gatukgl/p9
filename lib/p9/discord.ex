@@ -11,8 +11,9 @@ defmodule P9.Discord do
   def init(_args) do
     children = [
       {P9.Discord.Bot, []},
-      {P9.Discord.Consumer, []},
+      {P9.Discord.Consumer, []}
     ]
+
     Supervisor.init(children, strategy: :one_for_one)
   end
 end

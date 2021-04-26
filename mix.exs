@@ -24,7 +24,7 @@ defmodule P9.MixProject do
     [
       {:nostrum, git: "https://github.com/Kraigie/nostrum.git"},
       {:ecto_sql, "~> 3.6"},
-      {:postgrex, "~> 0.15"},
+      {:postgrex, "~> 0.15"}
     ]
   end
 end
