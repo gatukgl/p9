@@ -31,4 +31,13 @@ defmodule P9.Domain.Knowledge do
       conflict_target: :key
     )
   end
+
+  def del(key) do
+    P9.Domain.Knowledge
+    |> Repo.get_by(key: key)
+    |> case do
+      nil -> {:error, :not_found}
+      k -> Repo.delete(k)
+    end
+  end
 end
