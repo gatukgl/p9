@@ -1,4 +1,4 @@
-defmodule P9.Supervisor do
+defmodule P9.Discord do
   require Logger
 
   use Supervisor
@@ -10,7 +10,8 @@ defmodule P9.Supervisor do
   @impl true
   def init(_args) do
     children = [
-      {P9.Discord, []},
+      {P9.Discord.Bot, []},
+      {P9.Discord.Consumer, []},
     ]
     Supervisor.init(children, strategy: :one_for_one)
   end

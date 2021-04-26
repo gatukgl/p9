@@ -1,4 +1,4 @@
-defmodule P9.DiscordInteractions do
+defmodule P9.Discord.Interactions do
   require Logger
   require Regex
 

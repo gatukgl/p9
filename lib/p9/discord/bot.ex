@@ -1,11 +1,10 @@
-defmodule P9.DiscordBot do
+defmodule P9.Discord.Bot do
   defmodule State do
     defstruct username: "",
       discriminator: ""
   end
 
   require Logger
-  require String
 
   alias Nostrum.Api
 

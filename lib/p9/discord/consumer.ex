@@ -1,9 +1,9 @@
-defmodule P9.DiscordConsumer do
+defmodule P9.Discord.Consumer do
   require Logger
   use Nostrum.Consumer
 
-  alias P9.DiscordBot, as: Bot
-  alias P9.DiscordInteractions, as: Interact
+  alias P9.Discord.Bot, as: Bot
+  alias P9.Discord.Interactions, as: Interact
 
   def start_link do
     Consumer.start_link(__MODULE__)
@@ -25,7 +25,7 @@ defmodule P9.DiscordConsumer do
   end
 
   def handle_event({action, _msg, _ws_state}) do
-    Logger.debug("action #{action}")
+    Logger.debug("ignored #{action}")
     :ignore
   end
 end
