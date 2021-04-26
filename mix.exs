@@ -24,7 +24,11 @@ defmodule P9.MixProject do
     [
       {:nostrum, git: "https://github.com/Kraigie/nostrum.git"},
       {:ecto_sql, "~> 3.6"},
-      {:postgrex, "~> 0.15"}
+      {:postgrex, "~> 0.15"},
+      {:phoenix, "~> 1.5"},
+      {:jason, "~> 1.0"},
+      {:plug_cowboy, "~> 2.5"},
+      {:cowlib, "~> 2.10", override: true}
     ]
   end
 end

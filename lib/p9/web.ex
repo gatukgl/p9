@@ -1,6 +1,4 @@
-defmodule P9.Supervisor do
-  require Logger
-
+defmodule P9.Web do
   use Supervisor
 
   def start_link(opts) do
@@ -10,9 +8,7 @@ defmodule P9.Supervisor do
   @impl true
   def init(_args) do
     children = [
-      {P9.Discord, []},
-      {P9.Domain.Repo, []},
-      {P9.Web, []}
+      {P9.Web.Endpoint, []}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

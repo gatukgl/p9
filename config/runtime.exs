@@ -17,10 +17,16 @@ config :nostrum,
   token: System.get_env("DISCORD_TOKEN"),
   num_shards: :auto
 
-config :porcelain,
-  driver: Porcelain.Driver.Basic
+config :porcelain, driver: Porcelain.Driver.Basic
+
+config :phoenix, json_library: Jason
 
 config :p9, ecto_repos: [P9.Domain.Repo]
 
 config :p9, P9.Domain.Repo,
   url: Util.read_env("DATABASE_URL", "postgres://p9:prodigy9@0.0.0.0:5432/p9?sslmode=disable")
+
+config :p9, P9.Web.Endpoint,
+  url: [host: "0.0.0.0"],
+  http: [port: 4000],
+  server: true
