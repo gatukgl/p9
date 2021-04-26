@@ -1,5 +1,1 @@
-import Config
-
-config :nostrum,
-  token: System.get_env("DISCORD_TOKEN"),
-  num_shards: :auto
+Code.require_file("./common.exs", Path.dirname(__ENV__.file))
