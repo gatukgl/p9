@@ -8,6 +8,7 @@ defmodule P9Discord.Interactions do
   @hello_rx ~r/^(<@!?\d+>)\s*hello\s*/i
   @remember_rx ~r/^(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/i
   @forget_rx ~r/^(<@!?\d+>)\s+forget(\s+about)?\s+(.+)\s*/i
+  @search_rx ~r/^(<@!?\d+>)\s+search(\s+for)?\s+(.+)\s*/i
   @mention_rx ~r/^(<@!?\d+>)\s*(.+)\s*/i
 
   def with(msg) do
@@ -52,6 +53,20 @@ defmodule P9Discord.Interactions do
             :error
         end
 
+      String.match?(msg.content, @search_rx) ->
+        Logger.info("searching for knowledges")
+        [_, _, _, query] = Regex.run(@forget_rx, msg.content)
+
+        case Knowledge.search(query) do
+          x when x in [nil, []] ->
+            reply(msg, dontknow_msg(query))
+            :ack
+
+          result ->
+            reply(msg, result_msg(query, result))
+            :ack
+        end
+
       String.match?(msg.content, @mention_rx) ->
         Logger.info("unknown query: #{msg.content}, checking knowledges.")
         [_, _, key] = Regex.run(@mention_rx, msg.content)
@@ -73,8 +88,15 @@ defmodule P9Discord.Interactions do
   end
 
   defp reply(msg, txt), do: Api.create_message(msg.channel_id, txt)
+
   defp knowledge_msg(k), do: "`#{k.key}` = `#{k.value}`"
   defp purge_msg(k), do: "PURGED RECORD OF `#{k}`"
   defp dontknow_msg(k), do: "NO RECORD OF `#{k}`"
   defp error_msg(err), do: "ERROR!\n```\n#{err}\n```"
+
+  defp result_msg(query, result) do
+    result
+    |> Enum.map(fn k -> knowledge_msg(k) end)
+    |> Enum.reduce("RESULT MATCHING `#{query}`", fn s, acc -> acc <> "\n" <> s end)
+  end
 end

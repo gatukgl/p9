@@ -1,11 +1,13 @@
 defmodule P9.Knowledge do
-  require Protocol
   require Logger
+  require Protocol
 
   use Ecto.Schema
 
   alias Ecto.Changeset
   alias P9.Repo
+
+  import Ecto.Query
 
   @derive {Jason.Encoder, only: ~w(key value inserted_at updated_at)a}
   schema "knowledge" do
@@ -27,6 +29,11 @@ defmodule P9.Knowledge do
 
   def get_all do
     P9.Knowledge
+    |> Repo.all()
+  end
+
+  def search(text) do
+    from(k in P9.Knowledge, where: like(k.key, ^"%#{text}%"))
     |> Repo.all()
   end
 
