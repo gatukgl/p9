@@ -5,10 +5,10 @@ defmodule P9Discord.Interactions do
   alias Nostrum.Api
   alias P9.Knowledge
 
-  @hello_rx ~r/(<@!?\d+>)\s*hello\s*/i
-  @remember_rx ~r/(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/i
-  @forget_rx ~r/(<@!?\d+>)\s+forget(\s+about)?\s+(.+)\s*/i
-  @mention_rx ~r/(<@!?\d+>)\s*(.+)\s*/i
+  @hello_rx ~r/^(<@!?\d+>)\s*hello\s*/i
+  @remember_rx ~r/^(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/i
+  @forget_rx ~r/^(<@!?\d+>)\s+forget(\s+about)?\s+(.+)\s*/i
+  @mention_rx ~r/^(<@!?\d+>)\s*(.+)\s*/i
 
   def with(msg) do
     cond do
