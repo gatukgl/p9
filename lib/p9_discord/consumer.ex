@@ -3,7 +3,7 @@ defmodule P9Discord.Consumer do
   use Nostrum.Consumer
 
   alias P9Discord.Bot, as: Bot
-  alias P9Discord.Interactions, as: Interact
+  alias P9Discord.Controller
 
   def start_link do
     Consumer.start_link(__MODULE__)
@@ -13,7 +13,7 @@ defmodule P9Discord.Consumer do
     Bot.ensure_self_aware()
 
     if Bot.is_bot_mention?(msg) do
-      Interact.with(msg)
+      Controller.interact(msg)
     else
       :ignore
     end
