@@ -16,7 +16,7 @@ config :nostrum,
 config :p9,
   ecto_repos: [P9.Repo]
 
-config :p9, P9.Repo, url: "postgres://p9:prodigy9@0.0.0.0:5432/p9?sslmode=disable"
+config :p9, P9.Repo, url: "postgres://0.0.0.0:5432/p9?sslmode=disable"
 
 config :p9, P9Web.Endpoint,
   url: [host: "0.0.0.0"],
