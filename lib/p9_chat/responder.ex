@@ -30,10 +30,18 @@ defmodule P9Chat.Responder do
     end
   end
 
-  def knowledge_msg(k), do: "`#{k.key}` = `#{k.value}`"
   def purge_msg(k), do: "PURGED RECORD OF `#{k}`"
   def dontknow_msg(k), do: "NO RECORD OF `#{k}`"
   def error_msg(err), do: "ERROR!\n```\n#{err}\n```"
+
+  def knowledge_msg(k) do
+    uri = URI.parse(k.value)
+    if uri.scheme == nil do
+      "`#{k.key}` = `#{k.value}`"
+    else
+      "`#{k.key}` = #{k.value}"
+    end
+  end
 
   def result_msg(query, result) do
     result
