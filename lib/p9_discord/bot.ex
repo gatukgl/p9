@@ -48,7 +48,7 @@ defmodule P9Discord.Bot do
   end
 
   def handle_call({:impersonate, user}, _, state) do
-    Logger.info("interacting as user #{user.username}##{user.discriminator}")
+    Logger.info("Interacting as: #{user.username}##{user.discriminator}")
 
     new_state = %{state | username: user.username, discriminator: user.discriminator}
     {:reply, {:ok, new_state}, new_state}

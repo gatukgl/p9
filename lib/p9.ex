@@ -14,7 +14,7 @@ defmodule P9 do
       {P9.Repo, []}
     ]
 
-    Logger.info("descending into pandemonium...")
+    Logger.info("P9 Bot Starting...")
 
     Supervisor.start_link(children,
       name: P9Supervisor,

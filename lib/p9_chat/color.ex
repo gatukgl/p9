@@ -1,6 +1,8 @@
 defmodule P9Chat.Color do
   use P9Chat.Responder
 
+  @type t :: {:ok, Atom.t()}
+
   alias Nostrum.Api
 
   @rx ~r/^(<@!?\d+>)\s+color(\s+me)?\s+(.+)\s*/i
