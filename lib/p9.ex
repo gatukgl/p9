@@ -8,10 +8,11 @@ defmodule P9 do
   @impl true
   def start(_type, _args) do
     children = [
+      {P9.Repo, []},
+      {P9.Scheduler, []},
       {P9Discord.Bot, []},
       {P9Discord.Consumer, []},
-      {P9Web.Endpoint, []},
-      {P9.Repo, []}
+      {P9Web.Endpoint, []}
     ]
 
     Logger.info("P9 Bot Starting...")

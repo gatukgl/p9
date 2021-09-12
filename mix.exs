@@ -22,7 +22,7 @@ defmodule P9.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nostrum, git: "https://github.com/Kraigie/nostrum.git"},
+      {:nostrum, git: "https://github.com/chakrit/nostrum.git"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, "~> 0.15"},
       {:phoenix, "~> 1.5"},
