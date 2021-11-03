@@ -15,6 +15,7 @@ defmodule P9Discord.Consumer do
     if Bot.is_bot_mention?(msg) do
       Controller.interact(msg)
     else
+      Logger.debug("ignored message #{msg}")
       :ignore
     end
   end
