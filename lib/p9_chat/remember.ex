@@ -21,6 +21,9 @@ defmodule P9Chat.Remember do
       {:error, err} ->
         reply(msg, error_msg(err))
         :error
+
+      other ->
+        reply(msg, Kernel.inspect(other))
     end
   end
 end
