@@ -22,13 +22,14 @@ defmodule P9.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nostrum, git: "https://github.com/chakrit/nostrum.git"},
+      {:cowlib, "~> 2.10", override: true},
       {:ecto_sql, "~> 3.6"},
-      {:postgrex, "~> 0.15"},
-      {:phoenix, "~> 1.5"},
       {:jason, "~> 1.0"},
+      {:nostrum, git: "https://github.com/chakrit/nostrum.git"},
+      {:phoenix, "~> 1.5"},
       {:plug_cowboy, "~> 2.5"},
-      {:cowlib, "~> 2.10", override: true}
+      {:postgrex, "~> 0.15"},
+      {:swoosh, "~> 1.5.2"}
     ]
   end
 end
