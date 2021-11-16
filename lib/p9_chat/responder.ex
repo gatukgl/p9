@@ -36,6 +36,7 @@ defmodule P9Chat.Responder do
 
   def knowledge_msg(k) do
     uri = URI.parse(k.value)
+
     if uri.scheme == nil do
       "`#{k.key}` = `#{k.value}`"
     else
