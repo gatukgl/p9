@@ -9,6 +9,7 @@ defmodule P9Discord.Controller do
     P9Chat.Remember,
     P9Chat.Forget,
     P9Chat.Search,
+    P9Chat.Invite,
     # mention responder must be last as it globs up everything
     P9Chat.Mention
   ]
