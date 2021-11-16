@@ -12,7 +12,7 @@ defmodule P9.DiscordEmail do
     |> html_body("""
     <h3>Hello, Friends of PRODIGY9</h3>
     <p>This is a <strong>Single-Use Invitation Link</strong>, click the following to join:</p>
-    <p><a href="#{link}>#{link}</a></p>
+    <p><a href="#{link}">#{link}</a></p>
     <p>Once you've joined the Discord, ask someone to give you a role.<p>
     """)
     |> text_body("""
