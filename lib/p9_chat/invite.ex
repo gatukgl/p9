@@ -18,7 +18,7 @@ defmodule P9Chat.Invite do
       {:ok, invite} ->
         email = P9.DiscordEmail.single_invitation(email, invite.code)
 
-        case P9.Mailer.deliver!(email) do
+        case P9.Mailer.deliver(email) do
           {:ok, _} ->
             reply(msg, "INVITATION SENT")
             :ack
