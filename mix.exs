@@ -23,10 +23,10 @@ defmodule P9.MixProject do
   defp deps do
     [
       {:cowlib, "~> 2.10", override: true},
-      {:ecto_sql, "~> 3.6"},
+      {:ecto_sql, "~> 3.7"},
       {:jason, "~> 1.0"},
       {:nostrum, git: "https://github.com/chakrit/nostrum.git"},
-      {:phoenix, "~> 1.5"},
+      {:phoenix, "~> 1.6"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, "~> 0.15"},
       {:swoosh, "~> 1.5.2"}
