@@ -23,6 +23,6 @@ config :p9, P9Web.Endpoint,
   http: [port: 4000],
   server: true
 
-config :p9, P9.Mailer,
+config :p9, P9Mailer,
   adapter: Swoosh.Adapters.Postmark,
   api_key: ""

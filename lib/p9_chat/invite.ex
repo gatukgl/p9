@@ -16,9 +16,9 @@ defmodule P9Chat.Invite do
 
     case Api.create_channel_invite(@lobby_id, max_uses: 1, unique: true) do
       {:ok, invite} ->
-        email = P9.DiscordEmail.single_invitation(email, invite.code)
+        email = P9Mailer.DiscordEmail.single_invitation(email, invite.code)
 
-        case P9.Mailer.deliver(email) do
+        case P9Mailer.deliver(email) do
           {:ok, _} ->
             reply(msg, "INVITATION SENT")
             :ack

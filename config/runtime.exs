@@ -24,7 +24,7 @@ if Env.is_set?("PORT") do
 end
 
 if Env.is_set?("POSTMARK_TOKEN") do
-  config :p9, P9.Mailer,
+  config :p9, P9Mailer,
     adapter: Swoosh.Adapters.Postmark,
     api_key: Env.get("POSTMARK_TOKEN")
 end
