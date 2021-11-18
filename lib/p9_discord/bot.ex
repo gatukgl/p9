@@ -55,13 +55,17 @@ defmodule P9Discord.Bot do
   end
 
   def handle_call({:is_bot_mention?, msg}, _, state) do
-    match =
+    bot_authored =
+      state.username == msg.author.username &&
+        state.discriminator == msg.author.discriminator
+
+    bot_mentioned =
       msg.mentions
       |> Enum.any?(fn m ->
         state.username == m.username &&
           state.discriminator == m.discriminator
       end)
 
-    {:reply, match, state}
+    {:reply, bot_mentioned && !bot_authored, state}
   end
 end

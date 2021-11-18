@@ -20,7 +20,10 @@ defmodule P9Chat.Responder do
 
   @spec reply(Message.t(), String.t()) :: :ack | :ignore | :error
   def reply(msg, content) do
-    case Api.create_message(msg.channel_id, content) do
+    case Api.create_message(msg.channel_id,
+           content: content,
+           message_reference: %{message_id: msg.id}
+         ) do
       {:ok, _} ->
         :ack
 
