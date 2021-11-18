@@ -3,14 +3,15 @@ defmodule P9Discord.Controller do
   require Regex
 
   @responders [
-    P9Chat.ColorMe,
-    P9Chat.UncolorMe,
-    P9Chat.Hello,
-    P9Chat.Remember,
-    P9Chat.Forget,
-    P9Chat.Search,
-    P9Chat.Invite,
+    P9Chat.Allow,
     P9Chat.CanIMod,
+    P9Chat.ColorMe,
+    P9Chat.Forget,
+    P9Chat.Hello,
+    P9Chat.Invite,
+    P9Chat.Remember,
+    P9Chat.Search,
+    P9Chat.UncolorMe,
     # mention responder must be last as it globs up everything
     P9Chat.Mention
   ]
