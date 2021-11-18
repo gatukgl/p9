@@ -1,4 +1,4 @@
-defmodule P9Chat.Color do
+defmodule P9Chat.ColorMe do
   use P9Chat.Responder
 
   @type t :: {:ok, Atom.t()}

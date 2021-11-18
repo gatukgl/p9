@@ -1,4 +1,4 @@
-defmodule P9Chat.Uncolor do
+defmodule P9Chat.UncolorMe do
   use P9Chat.Responder
 
   alias Nostrum.Api
