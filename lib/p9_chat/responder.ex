@@ -30,6 +30,32 @@ defmodule P9Chat.Responder do
     end
   end
 
+  @spec author_can_mod?(Message.t()) :: {:ok, boolean()} | {:error, any()}
+  def author_can_mod?(msg) do
+    with {:ok, roles} <- Api.get_guild_roles(msg.guild_id),
+         {:ok, member} <- Api.get_guild_member(msg.guild_id, msg.author.id) do
+      id_maps =
+        roles
+        |> Enum.map(&{&1.id, &1.name})
+        |> Map.new()
+
+      mod_role =
+        member.roles
+        |> Enum.map(&Map.get(id_maps, &1))
+        |> Enum.filter(&(&1 != nil))
+        |> Enum.filter(fn role ->
+          String.contains?(role, "MODERATOR") ||
+            String.contains?(role, "CHIEF")
+        end)
+        |> List.first()
+
+      {:ok, mod_role != nil}
+    else
+      {:error, err} ->
+        {:error, err}
+    end
+  end
+
   def purge_msg(k), do: "PURGED RECORD OF `#{k}`"
   def dontknow_msg(k), do: "NO RECORD OF `#{k}`"
   def error_msg(err), do: "ERROR!\n```\n#{err}\n```"
