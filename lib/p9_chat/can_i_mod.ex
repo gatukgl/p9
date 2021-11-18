@@ -3,7 +3,7 @@ defmodule P9Chat.CanIMod do
 
   alias Nostrum.Api
 
-  @rx ~r/\s*can\s+i\s+mod\?\s+?/i
+  @rx ~r/\s*can\s+i\s+mod\??\s*/i
 
   @impl true
   def match(msg), do: String.match?(msg.content, @rx)
