@@ -4,8 +4,9 @@ defmodule P9Chat.Allow do
   alias Nostrum.Api
   alias Nostrum.Struct.Overwrite
 
-  @rx ~r/\s*allow\s+(.+)\s+here\s*/i
-  @perm_bits 1_071_631_425_088
+  @rx ~r/\s*allow\s+(.+)\s+(to )?(here|react|read|write)\s*/i
+  @regular_perm_bits 521_875_607_104
+  @react_perm_bits 279_209_952_832
 
   @impl true
   def match(msg), do: String.match?(msg.content, @rx)
@@ -13,7 +14,22 @@ defmodule P9Chat.Allow do
   @impl true
   def interact(msg) do
     {:ok, true} = author_can_mod?(msg)
-    [_, role_name_rx] = Regex.run(@rx, msg.content)
+    [_, role_name_rx, _, perms] = Regex.run(@rx, msg.content)
+
+    bits =
+      case perms do
+        "here" ->
+          @regular_perm_bits
+
+        "write" ->
+          @regular_perm_bits
+
+        "read" ->
+          @react_perm_bits
+
+        "react" ->
+          @react_perm_bits
+      end
 
     with {:ok, matched_roles} <- find_matched_roles(msg.guild_id, role_name_rx) do
       names =
@@ -23,7 +39,7 @@ defmodule P9Chat.Allow do
 
       overwrites =
         matched_roles
-        |> Enum.map(&%Overwrite{id: &1.id, allow: @perm_bits})
+        |> Enum.map(&%Overwrite{id: &1.id, allow: bits})
 
       Api.modify_channel(
         msg.channel_id,
