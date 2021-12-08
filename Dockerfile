@@ -12,6 +12,8 @@ RUN mix do deps.get, deps.compile
 ADD . .
 RUN mix release
 
+# ---
+
 FROM alpine:edge
 WORKDIR /app
 RUN apk add --no-cache ca-certificates tzdata elixir
