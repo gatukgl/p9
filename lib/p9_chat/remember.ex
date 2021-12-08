@@ -3,7 +3,7 @@ defmodule P9Chat.Remember do
 
   alias P9.Knowledge
 
-  @rx ~r/^(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/i
+  @rx ~r/^(<@!?\d+>)\s+remember\s+(.+)\s+is\s+(.+)\s*/is
 
   @impl true
   def match(msg), do: String.match?(msg.content, @rx)
