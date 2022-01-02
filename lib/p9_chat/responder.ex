@@ -73,6 +73,10 @@ defmodule P9Chat.Responder do
     end
   end
 
+  def countdown_msg(c) do
+    "it is #{c.count} days until #{c.message}"
+  end
+
   def result_msg(query, result) do
     result
     |> Enum.map(fn k -> knowledge_msg(k) end)

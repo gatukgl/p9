@@ -6,6 +6,7 @@ defmodule P9Discord.Controller do
     P9Chat.Allow,
     P9Chat.CanIMod,
     P9Chat.ColorMe,
+    P9Chat.Countdown,
     P9Chat.Forget,
     P9Chat.Hello,
     P9Chat.Invite,
