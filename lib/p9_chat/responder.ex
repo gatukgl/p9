@@ -12,6 +12,8 @@ defmodule P9Chat.Responder do
       require Logger
 
       import P9Chat.Responder
+
+      alias P9Discord.Bot
     end
   end
 

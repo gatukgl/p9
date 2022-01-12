@@ -6,7 +6,10 @@ defmodule P9Chat.UncolorMe do
   @rx ~r/^(<@!?\d+>)\s+uncolor(\s+me)?\s+/i
 
   @impl true
-  def match(msg), do: String.match?(msg.content, @rx)
+  def match(msg) do
+    String.match?(msg.content, @rx) &&
+      Bot.is_bot_mention?(msg)
+  end
 
   @impl true
   def interact(msg) do

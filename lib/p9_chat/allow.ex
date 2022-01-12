@@ -9,7 +9,10 @@ defmodule P9Chat.Allow do
   @react_perm_bits 279_209_952_832
 
   @impl true
-  def match(msg), do: String.match?(msg.content, @rx)
+  def match(msg) do
+    String.match?(msg.content, @rx) &&
+      Bot.is_bot_mention?(msg)
+  end
 
   @impl true
   def interact(msg) do

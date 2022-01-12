@@ -8,7 +8,10 @@ defmodule P9Chat.ColorMe do
   @rx ~r/^(<@!?\d+>)\s+color(\s+me)?\s+(.+)\s*/i
 
   @impl true
-  def match(msg), do: String.match?(msg.content, @rx)
+  def match(msg) do
+    String.match?(msg.content, @rx) &&
+      Bot.is_bot_mention?(msg)
+  end
 
   @impl true
   def interact(msg) do

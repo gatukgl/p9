@@ -4,7 +4,10 @@ defmodule P9Chat.Hello do
   @rx ~r/^(<@!?\d+>)\s*hello\s*/i
 
   @impl true
-  def match(msg), do: String.match?(msg.content, @rx)
+  def match(msg) do
+    String.match?(msg.content, @rx) &&
+      Bot.is_bot_mention?(msg)
+  end
 
   @impl true
   def interact(msg) do

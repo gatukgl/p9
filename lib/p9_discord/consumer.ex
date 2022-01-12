@@ -2,7 +2,7 @@ defmodule P9Discord.Consumer do
   require Logger
   use Nostrum.Consumer
 
-  alias P9Discord.Bot, as: Bot
+  alias P9Discord.Bot
   alias P9Discord.Controller
 
   def start_link do
@@ -11,13 +11,14 @@ defmodule P9Discord.Consumer do
 
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
     Bot.ensure_self_aware()
+    result = Controller.interact(msg)
 
-    if Bot.is_bot_mention?(msg) do
-      Controller.interact(msg)
-    else
+    if result == :ignore do
       Logger.debug("ignored message #{msg.content}")
       :ignore
     end
+
+    result
   end
 
   def handle_event({:READY, guild, _ws_state}) do

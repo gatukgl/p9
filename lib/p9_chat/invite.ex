@@ -7,7 +7,10 @@ defmodule P9Chat.Invite do
   @lobby_id 783_003_481_958_383_629
 
   @impl true
-  def match(msg), do: String.match?(msg.content, @rx)
+  def match(msg) do
+    String.match?(msg.content, @rx) &&
+      Bot.is_bot_mention?(msg)
+  end
 
   @impl true
   def interact(msg) do

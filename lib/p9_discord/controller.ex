@@ -30,8 +30,15 @@ defmodule P9Discord.Controller do
     Logger.info("responding with #{responder}")
     reply = responder.interact(msg)
 
-    if reply == :error do
-      Logger.warn("responder #{responder} errored on message #{msg.content}")
+    case reply do
+      :error ->
+        Logger.warn("responder #{responder} errored on message #{msg.content}")
+
+      :ack ->
+        Logger.info("responder #{responder} responded to #{msg.content}")
+
+      :ignore ->
+        Logger.warn("ignored message #{msg.content}")
     end
 
     reply

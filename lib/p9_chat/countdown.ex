@@ -6,7 +6,10 @@ defmodule P9Chat.Countdown do
   @rx ~r/^(<@!?\d+>)\s+countdown(\s+to)?\s+(.+)\s+in\s+([0-9]+)(\s+days)?\s*/i
 
   @impl true
-  def match(msg), do: String.match?(msg.content, @rx)
+  def match(msg) do
+    String.match?(msg.content, @rx) &&
+      Bot.is_bot_mention?(msg)
+  end
 
   @impl true
   def interact(msg) do
