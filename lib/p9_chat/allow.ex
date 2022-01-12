@@ -5,8 +5,8 @@ defmodule P9Chat.Allow do
   alias Nostrum.Struct.Overwrite
 
   @rx ~r/\s*allow\s+(.+)\s+(to )?(here|react|read|write)\s*/i
-  @regular_perm_bits 521_875_607_104
-  @react_perm_bits 279_209_952_832
+  @regular_perm_bits 1_002_911_948_352
+  @react_perm_bits 416_646_760_000
 
   @impl true
   def match(msg) do
