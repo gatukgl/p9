@@ -10,6 +10,7 @@ defmodule P9Discord.Controller do
     P9Chat.Forget,
     P9Chat.Hello,
     P9Chat.Invite,
+    P9Chat.Leave,
     P9Chat.Remember,
     P9Chat.Search,
     P9Chat.UncolorMe,

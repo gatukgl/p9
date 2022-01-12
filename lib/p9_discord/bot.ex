@@ -31,6 +31,10 @@ defmodule P9Discord.Bot do
     GenServer.call(__MODULE__, {:is_self_aware?, []})
   end
 
+  def is_bot_msg?(msg) do
+    GenServer.call(__MODULE__, {:is_bot_msg?, msg})
+  end
+
   def is_bot_mention?(msg) do
     GenServer.call(__MODULE__, {:is_bot_mention?, msg})
   end
@@ -67,5 +71,13 @@ defmodule P9Discord.Bot do
       end)
 
     {:reply, bot_mentioned && !bot_authored, state}
+  end
+
+  def handle_call({:is_bot_msg?, msg}, _, state) do
+    bot_authored =
+      state.username == msg.author.username &&
+        state.discriminator == msg.author.discriminator
+
+    {:reply, bot_authored, state}
   end
 end
