@@ -11,12 +11,12 @@ defmodule P9Chat.Allow do
   @impl true
   def match(msg) do
     String.match?(msg.content, @rx) &&
-      Bot.is_bot_mention?(msg)
+      Bot.is_bot_mention?(msg) &&
+      {:ok, true} == author_can_mod?(msg)
   end
 
   @impl true
   def interact(msg) do
-    {:ok, true} = author_can_mod?(msg)
     [_, role_name_rx, _, perms] = Regex.run(@rx, msg.content)
 
     bits =
@@ -34,7 +34,8 @@ defmodule P9Chat.Allow do
           @react_perm_bits
       end
 
-    with {:ok, matched_roles} <- find_matched_roles(msg.guild_id, role_name_rx) do
+    with {:ok, matched_roles} <- find_matched_roles(msg.guild_id, role_name_rx),
+         {:ok, channel} = Api.get_channel(msg.channel_id) do
       names =
         matched_roles
         |> Enum.map(& &1.name)
@@ -46,7 +47,7 @@ defmodule P9Chat.Allow do
 
       Api.modify_channel(
         msg.channel_id,
-        %{permission_overwrites: overwrites},
+        %{permission_overwrites: channel.permission_overwrites ++ overwrites},
         "Done on behalf of #{msg.author.username}"
       )
 
