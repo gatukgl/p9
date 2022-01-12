@@ -45,14 +45,19 @@ defmodule P9Chat.Allow do
         matched_roles
         |> Enum.map(&%Overwrite{id: &1.id, allow: bits})
 
-      Api.modify_channel(
-        msg.channel_id,
-        %{permission_overwrites: channel.permission_overwrites ++ overwrites},
-        "Done on behalf of #{msg.author.username}"
-      )
+      case Api.modify_channel(
+             msg.channel_id,
+             %{permission_overwrites: channel.permission_overwrites ++ overwrites},
+             "Done on behalf of #{msg.author.username}"
+           ) do
+        {:ok, _} ->
+          reply(msg, "ALLOWED:\n#{names}")
+          :ack
 
-      reply(msg, "ALLOWED:\n#{names}")
-      :ack
+        {:error, err} ->
+          reply(msg, error_msg(err))
+          :error
+      end
     else
       {:error, err} ->
         reply(msg, error_msg(err))

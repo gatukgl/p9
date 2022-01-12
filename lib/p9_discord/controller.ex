@@ -12,6 +12,7 @@ defmodule P9Discord.Controller do
     P9Chat.Invite,
     P9Chat.Leave,
     P9Chat.Remember,
+    P9Chat.ResetPermissions,
     P9Chat.Search,
     P9Chat.UncolorMe,
     # mention responder must be last as it globs up everything
