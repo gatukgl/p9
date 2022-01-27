@@ -10,6 +10,7 @@ defmodule P9Chat.Leave do
   def match(msg) do
     # is #leave channel and did not mention anyone
     msg.channel_id == @leave_channel_id &&
+      msg.referenced_message == nil &&
       !Bot.is_bot_msg?(msg)
   end
 
