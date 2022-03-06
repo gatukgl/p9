@@ -30,7 +30,8 @@ defmodule P9.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, "~> 0.15"},
       {:swoosh, "~> 1.6.3"},
-      {:hackney, "~> 1.18"}
+      {:hackney, "~> 1.18"},
+      {:poison, "~> 5.0"}
     ]
   end
 end
