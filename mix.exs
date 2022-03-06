@@ -29,7 +29,8 @@ defmodule P9.MixProject do
       {:phoenix, "~> 1.6"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, "~> 0.15"},
-      {:swoosh, "~> 1.6.3"}
+      {:swoosh, "~> 1.6.3"},
+      {:hackney, "~> 1.18"}
     ]
   end
 end
