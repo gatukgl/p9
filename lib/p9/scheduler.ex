@@ -51,8 +51,6 @@ defmodule P9.Scheduler do
 
     if mod_state.next_run_at == nil || DateTime.compare(t, mod_state.next_run_at) == :gt do
       {delay, result} = mod.run()
-
-      t = DateTime.utc_now()
       next_run = DateTime.add(t, delay, :millisecond)
 
       {mod,

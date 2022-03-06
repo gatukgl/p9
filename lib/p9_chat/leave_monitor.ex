@@ -1,4 +1,4 @@
-defmodule P9Chat.Leave do
+defmodule P9Chat.LeaveMonitor do
   use P9Chat.Responder
 
   alias Nostrum.Api
