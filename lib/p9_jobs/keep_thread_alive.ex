@@ -23,7 +23,7 @@ defmodule P9Jobs.KeepThreadAlive do
   defp process_thread(thread) do
     with {thread_id, _} <- Integer.parse(thread.id),
          {last_message_id, _} <- Integer.parse(thread.last_message_id),
-         {:ok, last_message} <- Api.get_channel_message(thread_id, last_message_id)
+         {:ok, last_message} <- Api.get_channel_message(thread_id, last_message_id) do
       time_left =
         last_message.timestamp
         |> DateTime.add(thread.thread_metadata.auto_archive_duration * 60, :second)
