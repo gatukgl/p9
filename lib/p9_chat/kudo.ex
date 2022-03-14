@@ -10,7 +10,8 @@ defmodule P9Chat.Kudo do
 
   @impl true
   def match(msg) do
-    String.match?(msg.content, @rx)
+    String.match?(msg.content, @rx) &&
+      !Bot.is_bot_mention?(msg)
   end
 
   @impl true
