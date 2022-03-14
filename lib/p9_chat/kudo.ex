@@ -21,7 +21,7 @@ defmodule P9Chat.Kudo do
 
     with :pass <- ratelimit(msg.author.id),
          {:ok, _} <- P9.Kudo.record(msg.author.id, receiver_user_id) do
-      {:ok} = Api.create_reaction(msg.channel_id, msg.id, "📝")
+      {:ok} = Api.create_reaction(msg.channel_id, msg.id, "👍")
       :ack
     else
       :ratelimited ->
