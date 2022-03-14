@@ -15,7 +15,7 @@ defmodule P9Chat.Kudo do
 
   @impl true
   def interact(msg) do
-    [_, raw_receiver_user_id] = Regex.run(@rx, msg.content)
+    [_, raw_receiver_user_id, _] = Regex.run(@rx, msg.content)
     {receiver_user_id, _} = Integer.parse(raw_receiver_user_id)
 
     with :pass <- ratelimit(msg.author.id),
