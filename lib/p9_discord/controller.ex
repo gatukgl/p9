@@ -4,6 +4,7 @@ defmodule P9Discord.Controller do
 
   @responders [
     P9Chat.Allow,
+    P9Chat.BulkTrimHistory,
     P9Chat.CanIMod,
     P9Chat.ColorMe,
     P9Chat.Countdown,

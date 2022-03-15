@@ -1,11 +1,15 @@
-defmodule P9Chat.TrimHistory do
+# bulk-delete version of TrimHistory
+# doesn't exactly work correctly as discord bulk-delete api has a 2-weeks limit
+defmodule P9Chat.BulkTrimHistory do
   use P9Chat.Responder
   require Logger
 
   alias Nostrum.Api
+  alias Nostrum.Struct.Message
 
-  @rx ~r/^(<@!?\d+>)\s+trim\s+history\s*/i
+  @rx ~r/^(<@!?\d+>)\s+bulk\s+trim\s+history\s*/i
   @history_limit 60 * 60 * 24
+  @bulk_delete_limit 100
 
   @impl true
   def match(msg) do
@@ -53,19 +57,31 @@ defmodule P9Chat.TrimHistory do
     end
   end
 
-  # we have to delete 1-by-1 since bulk delete API doesn't work for messages older than 2
-  # weeks
   defp delete_messages(messages, count \\ 0) do
-    case messages do
+    {chunk, leftover} = Enum.split(messages, @bulk_delete_limit)
+
+    case chunk do
       [] ->
         {:ok, count}
 
-      [msg | rest] ->
-        case Api.delete_message(msg.channel_id, msg.id) do
+      [msg] ->
+        case Api.delete_message(msg) do
           {:ok} ->
-            # nostrum ratelimiter doesn't fucking work
-            :timer.sleep(2000)
-            delete_messages(rest, count + 1)
+            {:ok, count + 1}
+
+          {:error, err} ->
+            {:error, err}
+        end
+
+      [msg | _] ->
+        case Api.request(:post, "/channels/#{msg.channel_id}/messages/bulk-delete", %{
+               messages: chunk |> Enum.map(fn m -> m.id end)
+             }) do
+          {:ok} ->
+            delete_messages(leftover, count + @bulk_delete_limit)
+
+          {:ok, _} ->
+            delete_messages(leftover, count + @bulk_delete_limit)
 
           {:error, err} ->
             {:error, err}
