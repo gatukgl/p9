@@ -24,14 +24,15 @@ defmodule P9.MixProject do
     [
       {:cowlib, "~> 2.10", override: true},
       {:ecto_sql, "~> 3.7"},
+      {:hackney, "~> 1.18"},
       {:jason, "~> 1.0"},
       {:nostrum, "~> 0.5"},
       {:phoenix, "~> 1.6"},
       {:plug_cowboy, "~> 2.5"},
+      {:poison, "~> 5.0"},
+      {:porcelain, "~> 2.0"},
       {:postgrex, "~> 0.15"},
-      {:swoosh, "~> 1.6.3"},
-      {:hackney, "~> 1.18"},
-      {:poison, "~> 5.0"}
+      {:swoosh, "~> 1.6.3"}
     ]
   end
 end
