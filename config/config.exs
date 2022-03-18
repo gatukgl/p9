@@ -11,7 +11,8 @@ config :phoenix,
   json_library: Jason
 
 config :nostrum,
-  num_shareds: :auto
+  num_shareds: :auto,
+  logger: :warn
 
 config :p9,
   ecto_repos: [P9.Repo]
