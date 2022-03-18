@@ -6,7 +6,7 @@ defmodule P9Chat.Allow do
 
   @rx ~r/\s*allow\s+(.+)\s+(to )?(here|react|read|write)\s*/i
   @regular_perm_bits 1_002_911_948_352
-  @react_perm_bits 416_646_760_000
+  @react_perm_bits 691_526_813_248
 
   @impl true
   def match(msg) do
