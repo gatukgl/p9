@@ -7,7 +7,7 @@ defmodule P9.Kudo do
 
   import Ecto.Query
 
-  @derive {Jason.Encoder, only: ~w()a}
+  @derive {Jason.Encoder, only: ~w(giver_user_id receiver_user_id inserted_at updated_at)a}
   schema "kudo" do
     field(:giver_user_id, :integer)
     field(:receiver_user_id, :integer)
