@@ -1,8 +1,11 @@
 defmodule P9Chat.Allow do
   use P9Chat.Responder
 
+  require Protocol
+
   alias Nostrum.Api
   alias Nostrum.Struct.Overwrite
+  Protocol.derive(Jason.Encoder, Overwrite)
 
   @rx ~r/\s*allow\s+(.+)\s+(to )?(here|react|read|write)\s*/i
   @regular_perm_bits 1_002_911_948_352
@@ -43,11 +46,19 @@ defmodule P9Chat.Allow do
 
       overwrites =
         matched_roles
-        |> Enum.map(&%Overwrite{id: &1.id, allow: bits})
+        |> Enum.map(&%Overwrite{id: &1.id, allow: bits, type: 0})
+
+      modifications = %{
+        permission_overwrites: channel.permission_overwrites ++ overwrites
+      }
+
+      Logger.info(
+        "wtf: #{Kernel.inspect(msg.channel_id)}\n#{Kernel.inspect(modifications)}\n#{Kernel.inspect(msg.author.username)}"
+      )
 
       case Api.modify_channel(
              msg.channel_id,
-             %{permission_overwrites: channel.permission_overwrites ++ overwrites},
+             modifications,
              "Done on behalf of #{msg.author.username}"
            ) do
         {:ok, _} ->
