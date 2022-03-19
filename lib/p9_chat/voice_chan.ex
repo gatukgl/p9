@@ -5,12 +5,12 @@ defmodule P9Chat.VoiceChan do
 
   @rx ~r/\#(talking|coding|chilling|thinking|eating|gaming)/i
   @chan_maps %{
-    talking: 809_290_566_365_609_995,
-    coding: 832_984_927_489_228_850,
-    chilling: 841_238_445_040_599_041,
-    thinking: 859_063_153_845_731_338,
-    eating: 859_063_236_066_410_526,
-    gaming: 913_773_821_155_233_812
+    "talking" => 809_290_566_365_609_995,
+    "coding" => 832_984_927_489_228_850,
+    "chilling" => 841_238_445_040_599_041,
+    "thinking" => 859_063_153_845_731_338,
+    "eating" => 859_063_236_066_410_526,
+    "gaming" => 913_773_821_155_233_812
   }
 
   @impl true
