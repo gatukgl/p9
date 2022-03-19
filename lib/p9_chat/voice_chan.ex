@@ -1,8 +1,6 @@
 defmodule P9Chat.VoiceChan do
   use P9Chat.Responder
 
-  alias Nostrum.Api
-
   require Protocol
 
   @rx ~r/\#(talking|coding|chilling|thinking|eating|gaming)/i
@@ -24,16 +22,7 @@ defmodule P9Chat.VoiceChan do
   def interact(msg) do
     Logger.info("voice channel mention detected")
     [_, chan] = Regex.run(@rx, msg.content)
-
-    new_content = String.replace(msg.content, chan, "<##{@chan_maps[chan]}>")
-
-    case Api.edit_message(msg, content: new_content) do
-      {:ok, _} ->
-        :ack
-
-      {:error, err} ->
-        reply(msg, error_msg(err))
-        :error
-    end
+    reply(msg, "<##{@chan_maps[chan]}>")
+    :ack
   end
 end
