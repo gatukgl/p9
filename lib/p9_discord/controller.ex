@@ -20,6 +20,7 @@ defmodule P9Discord.Controller do
     P9Chat.Timeout,
     P9Chat.TrimHistory,
     P9Chat.UncolorMe,
+    P9Chat.VoiceChan,
     # mention responder must be last as it globs up everything
     P9Chat.Mention
   ]
