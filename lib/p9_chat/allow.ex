@@ -52,16 +52,13 @@ defmodule P9Chat.Allow do
         permission_overwrites: channel.permission_overwrites ++ overwrites
       }
 
-      Logger.info(
-        "wtf: #{Kernel.inspect(msg.channel_id)}\n#{Kernel.inspect(modifications)}\n#{Kernel.inspect(msg.author.username)}"
-      )
-
       case Api.modify_channel(
              msg.channel_id,
              modifications,
              "Done on behalf of #{msg.author.username}"
            ) do
         {:ok, _} ->
+          names = names |> Enum.map(&escape_role_name/1)
           reply(msg, "ALLOWED:\n#{names}")
           :ack
 
@@ -84,5 +81,9 @@ defmodule P9Chat.Allow do
       {:error, err} ->
         {:error, err}
     end
+  end
+
+  defp escape_role_name(name) do
+    name |> String.replace("@", "")
   end
 end
