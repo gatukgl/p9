@@ -20,10 +20,7 @@ dagger.#Plan & {
 	}
 
 	actions: {
-		pull: docker.#Pull & {
-			source: "alpine:edge"
-			platforms: ["linux/amd64"]
-		}
+		pull: docker.#Pull & {source: "alpine:edge"}
 
 		build: docker.#Dockerfile & {
 			source: client.filesystem.".".read.contents
