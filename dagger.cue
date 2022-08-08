@@ -1,0 +1,35 @@
+package main
+
+import (
+	"dagger.io/dagger"
+	"universe.dagger.io/docker"
+)
+
+dagger.#Plan & {
+	client: {
+		filesystem: ".": read: contents: dagger.#FS
+		env: {
+			GITHUB_USER:  string
+			GITHUB_TOKEN: dagger.#Secret
+		}
+	}
+
+	_auth: {
+		username: client.env.GITHUB_USER
+		secret:   client.env.GITHUB_TOKEN
+	}
+
+	actions: {
+		pull: docker.#Pull & {source: "alpine:edge"}
+
+		build: docker.#Dockerfile & {
+			source: client.filesystem.".".read.contents
+		}
+
+		push: docker.#Push & {
+			image: actions.build.output
+			dest:  "ghcr.io/prod9/p9:latest"
+			auth:  _auth
+		}
+	}
+}

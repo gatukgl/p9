@@ -2,6 +2,7 @@
 /.fetch
 /_build/
 /cover/
+/cue.mod/pkg
 /deps/
 /doc/
 /tmp
