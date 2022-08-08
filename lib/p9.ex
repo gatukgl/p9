@@ -12,7 +12,8 @@ defmodule P9 do
       {P9.Scheduler, []},
       {P9Discord.Bot, []},
       {P9Discord.Consumer, []},
-      {P9Web.Endpoint, []}
+      {P9Web.Endpoint, []},
+      {Finch, name: P9Finch}
     ]
 
     Logger.info("P9 Bot Starting...")
