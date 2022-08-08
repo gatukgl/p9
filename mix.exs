@@ -24,6 +24,7 @@ defmodule P9.MixProject do
     [
       {:cowlib, "~> 2.10", override: true},
       {:ecto_sql, "~> 3.7"},
+      {:finch, "~> 0.13"},
       {:hackney, "~> 1.18"},
       {:jason, "~> 1.0"},
       {:nostrum, "~> 0.5"},
